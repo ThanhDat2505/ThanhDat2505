@@ -1,0 +1,107 @@
+name: Metrics
+
+on:
+  # Chạy tự động mỗi ngày lúc 07:00 giờ Việt Nam (00:00 UTC)
+  schedule:
+    - cron: "0 0 * * *"
+  # Cho phép bấm chạy tay từ tab Actions
+  workflow_dispatch:
+  # Chạy lại mỗi khi push vào main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      # ------------------------------------------------------------------
+      # 1. Ảnh tổng quan chính: header, activity, community, repositories
+      # ------------------------------------------------------------------
+      - name: Overview
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: YOUR_USERNAME
+          filename: github-metrics.svg
+          template: classic
+          base: header, activity, community, repositories, metadata
+          config_timezone: Asia/Ho_Chi_Minh
+          config_display: large
+          repositories_affiliations: owner, collaborator
+
+      # ------------------------------------------------------------------
+      # 2. Ngôn ngữ sử dụng nhiều nhất (phân tích sâu theo dòng code thật)
+      # ------------------------------------------------------------------
+      - name: Languages
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: YOUR_USERNAME
+          filename: metrics.plugin.languages.indepth.svg
+          base: ""
+          config_timezone: Asia/Ho_Chi_Minh
+          plugin_languages: yes
+          plugin_languages_analysis_timeout: 15
+          plugin_languages_categories: markup, programming
+          plugin_languages_colors: github
+          plugin_languages_limit: 8
+          plugin_languages_recent_categories: markup, programming
+          plugin_languages_recent_days: 14
+          plugin_languages_recent_load: 300
+          plugin_languages_sections: most-used, recently-used
+          plugin_languages_indepth: yes
+          plugin_languages_details: bytes-size, percentage
+
+      # ------------------------------------------------------------------
+      # 3. Lịch commit dạng vòng tròn cả năm
+      # ------------------------------------------------------------------
+      - name: Isometric calendar
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: YOUR_USERNAME
+          filename: metrics.plugin.isocalendar.fullyear.svg
+          base: ""
+          config_timezone: Asia/Ho_Chi_Minh
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+      # ------------------------------------------------------------------
+      # 4. Thói quen code: giờ hoạt động, ngày hoạt động, ngôn ngữ gần đây
+      # ------------------------------------------------------------------
+      - name: Habits
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: YOUR_USERNAME
+          filename: metrics.plugin.habits.charts.svg
+          base: ""
+          config_timezone: Asia/Ho_Chi_Minh
+          plugin_habits: yes
+          plugin_habits_charts: yes
+          plugin_habits_charts_type: classic
+          plugin_habits_days: 14
+          plugin_habits_facts: no
+          plugin_habits_from: 200
+          plugin_habits_languages_limit: 8
+          plugin_habits_trim: yes
+
+      # ------------------------------------------------------------------
+      # 5. Thành tích GitHub (achievements)
+      # ------------------------------------------------------------------
+      - name: Achievements
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: YOUR_USERNAME
+          filename: metrics.plugin.achievements.compact.svg
+          base: ""
+          config_timezone: Asia/Ho_Chi_Minh
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_achievements_secrets: yes
+          plugin_achievements_threshold: C
