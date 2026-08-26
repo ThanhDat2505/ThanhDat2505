@@ -9,6 +9,9 @@
   <a href="mailto:phanthanhdat2505@gmail.com">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
   </a>
+  <a href="https://linkedin.com/in/YOUR_LINKEDIN">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+  </a>
   <img src="https://komarev.com/ghpvc/?username=ThanhDat2505&style=for-the-badge&color=0e75b6&label=PROFILE+VIEWS" alt="Profile views">
 </p>
 
@@ -122,7 +125,7 @@ with photos and condition details; buyers search, filter, and contact sellers di
       <img src="metrics.plugin.habits.charts.svg" alt="Coding habits" width="100%">
     </td>
     <td width="50%" valign="top">
-      <img src="metrics.plugin.achievements.compact.svg" alt="Achievements" width="100%">
+      <img src="metrics.plugin.stats.svg" alt="Code stats and topics" width="100%">
     </td>
   </tr>
 </table>
