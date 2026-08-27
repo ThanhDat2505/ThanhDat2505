@@ -120,14 +120,6 @@ with photos and condition details; buyers search, filter, and contact sellers di
       <img src="metrics.plugin.isocalendar.fullyear.svg" alt="Commit calendar" width="100%">
     </td>
   </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <img src="metrics.plugin.habits.charts.svg" alt="Coding habits" width="100%">
-    </td>
-    <td width="50%" valign="top">
-      <img src="metrics.plugin.stats.svg" alt="Code stats and topics" width="100%">
-    </td>
-  </tr>
 </table>
 
 ---
