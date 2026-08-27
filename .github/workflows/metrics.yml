@@ -98,7 +98,7 @@ jobs:
           retries_output_action: 10
           retries_delay_output_action: 90
           plugin_habits: yes
-          plugin_habits_charts: yes
+          plugin_habits_charts: no
           plugin_habits_charts_type: classic
           plugin_habits_days: 30
           plugin_habits_facts: yes
