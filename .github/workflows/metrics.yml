@@ -84,50 +84,13 @@ jobs:
           plugin_isocalendar_duration: full-year
 
       # ------------------------------------------------------------------
-      # 4. Thói quen code: giờ hoạt động, ngày hoạt động, ngôn ngữ gần đây
-      # ------------------------------------------------------------------
-      - name: Habits
-        uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          user: ThanhDat2505
-          filename: metrics.plugin.habits.charts.svg
-          base: ""
-          config_timezone: Asia/Ho_Chi_Minh
-          debug: yes
-          retries_output_action: 10
-          retries_delay_output_action: 90
-          plugin_habits: yes
-          plugin_habits_charts: no
-          plugin_habits_charts_type: classic
-          plugin_habits_days: 30
-          plugin_habits_facts: yes
-          plugin_habits_from: 100
-          plugin_habits_languages_limit: 8
-          plugin_habits_trim: yes
-
-      # ------------------------------------------------------------------
-      # 5. Thống kê code + chủ đề quan tâm
+      # ĐÃ GỠ BỎ 2 PLUGIN (không sửa được bằng cấu hình):
       #
-      # LƯU Ý: đã bỏ plugin `achievements`. Plugin đó query field
-      # `user.projects` (Projects classic) mà GitHub đã khai tử, nên GraphQL
-      # trả về `user: null` và plugin luôn báo "Unexpected error". Không có
-      # tham số nào sửa được — đây là bug của lowlighter/metrics v3.34.
+      # - achievements : query field `user.projects` (Projects classic) mà
+      #                  GitHub đã khai tử -> GraphQL trả `user: null`.
+      # - habits       : luôn báo "Unexpected error". Plugin này phụ thuộc
+      #                  Events API và docker image v3.34 build từ 09/2023
+      #                  nên đã lệch so với GitHub API hiện tại.
+      #
+      # Nếu sau này muốn thử lại, thêm `debug: yes` vào step để xem lỗi thật.
       # ------------------------------------------------------------------
-      - name: Code stats
-        uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          user: ThanhDat2505
-          filename: metrics.plugin.stats.svg
-          base: ""
-          config_timezone: Asia/Ho_Chi_Minh
-          retries_output_action: 10
-          retries_delay_output_action: 90
-          plugin_lines: yes
-          plugin_lines_sections: base
-          plugin_lines_repositories_limit: 4
-          plugin_lines_history_limit: 1
-          plugin_topics: yes
-          plugin_topics_mode: icons
-          plugin_topics_limit: 12
