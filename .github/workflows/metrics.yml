@@ -6,10 +6,17 @@ on:
     - cron: "0 0 * * *"
   # Cho phép bấm chạy tay từ tab Actions
   workflow_dispatch:
-  # Chạy lại mỗi khi push vào main
-  push:
-    branches:
-      - main
+
+  # LƯU Ý: đã BỎ trigger `push`.
+  # Workflow này tự commit file SVG vào main. Nếu commit đó được tạo bằng PAT,
+  # nó sẽ kích hoạt lại chính workflow này -> 2 run chạy song song cùng ghi vào
+  # main -> lỗi "does not match <sha>" khi commit.
+
+# Chỉ cho phép 1 run tại một thời điểm. Nếu bấm Run workflow trong lúc run cũ
+# chưa xong, run cũ sẽ bị huỷ thay vì chạy song song.
+concurrency:
+  group: metrics
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -30,6 +37,8 @@ jobs:
           template: classic
           base: header, activity, community, repositories, metadata
           config_timezone: Asia/Ho_Chi_Minh
+          retries_output_action: 10
+          retries_delay_output_action: 90
           config_display: large
           repositories_affiliations: owner, collaborator
 
@@ -44,14 +53,16 @@ jobs:
           filename: metrics.plugin.languages.indepth.svg
           base: ""
           config_timezone: Asia/Ho_Chi_Minh
+          retries_output_action: 10
+          retries_delay_output_action: 90
           plugin_languages: yes
-          plugin_languages_analysis_timeout: 15
+          plugin_languages_analysis_timeout: 8
           plugin_languages_categories: markup, programming
           plugin_languages_colors: github
           plugin_languages_limit: 8
           plugin_languages_recent_categories: markup, programming
           plugin_languages_recent_days: 14
-          plugin_languages_recent_load: 300
+          plugin_languages_recent_load: 200
           plugin_languages_sections: most-used, recently-used
           plugin_languages_indepth: yes
           plugin_languages_details: bytes-size, percentage
@@ -67,6 +78,8 @@ jobs:
           filename: metrics.plugin.isocalendar.fullyear.svg
           base: ""
           config_timezone: Asia/Ho_Chi_Minh
+          retries_output_action: 10
+          retries_delay_output_action: 90
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
 
@@ -81,6 +94,8 @@ jobs:
           filename: metrics.plugin.habits.charts.svg
           base: ""
           config_timezone: Asia/Ho_Chi_Minh
+          retries_output_action: 10
+          retries_delay_output_action: 90
           plugin_habits: yes
           plugin_habits_charts: yes
           plugin_habits_charts_type: classic
@@ -106,6 +121,8 @@ jobs:
           filename: metrics.plugin.stats.svg
           base: ""
           config_timezone: Asia/Ho_Chi_Minh
+          retries_output_action: 10
+          retries_delay_output_action: 90
           plugin_lines: yes
           plugin_lines_sections: base
           plugin_lines_repositories_limit: 4
